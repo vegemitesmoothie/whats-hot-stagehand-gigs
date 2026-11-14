@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<!-- Single-file build: Hot and Archive share one document/URL, so noindex/nofollow is applied document-wide to keep dated archive data out of search results. Both views stay reachable by direct link. -->
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="data:," />
+<title>What's Hot — Stagehand Gigs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f4f1; --surface:#ffffff; --surface2:#ecece7; --ink:#171814; --muted:#5c5e57; --line:#d9d9d0;
+    --accent:#b45309; --accent-ink:#92400e; --accent-bg:#fef3c7; --hot:#c2410c; --hot-bg:#fff1e6;
+    --green:#166534; --green-bg:#dcfce7; --amber-bg:#fef9e2; --amber-line:#eab308; --amber-ink:#713f12;
+    --chip:#171814; --chip-ink:#fff; --shadow:0 1px 2px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#121210; --surface:#1c1c19; --surface2:#262622; --ink:#f2f1ea; --muted:#a8a99f; --line:#33332d;
+      --accent:#f59e0b; --accent-ink:#fbbf24; --accent-bg:#2b2107; --hot:#fb923c; --hot-bg:#2b1608;
+      --green:#4ade80; --green-bg:#122b18; --amber-bg:#2a2306; --amber-line:#a16207; --amber-ink:#fde68a;
+      --chip:#f2f1ea; --chip-ink:#171814; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Barlow",system-ui,-apple-system,Segoe UI,sans-serif;font-size:16.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  button,[role="button"]{min-height:44px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 18px 56px}
+
+  /* Masthead */
+  .topbar{border-bottom:3px solid var(--ink);padding:22px 0 16px}
+  .meta{font-family:"IBM Plex Mono",monospace;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px}
+  .meta b{color:var(--ink);font-weight:600}
+  .meta .dot{color:var(--accent)}
+  h1{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:clamp(3.2rem,10vw,5.2rem);line-height:.9;letter-spacing:.01em;text-transform:uppercase;margin:10px 0 6px}
+  h1 em{font-style:normal;color:var(--hot)}
+  .lede{font-size:1.12rem;color:var(--muted);max-width:34em;margin:0}
+  .lede strong{color:var(--ink)}
+  .scope{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .scope span{font-family:"IBM Plex Mono",monospace;font-size:.78rem;font-weight:600;padding:7px 10px;border:1.5px solid var(--ink);border-radius:999px;background:var(--surface)}
+  .scope span.solid{background:var(--chip);color:var(--chip-ink)}
+
+  /* Clash alert */
+  .clash{margin-top:22px;background:var(--amber-bg);border:1.5px solid var(--amber-line);border-left:6px solid var(--amber-line);border-radius:10px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+  .clash .icon{font-size:1.5rem;line-height:1;flex:none;margin-top:2px}
+  .clash h2{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.04em;font-size:1.25rem;margin:0 0 3px;color:var(--amber-ink)}
+  .clash p{margin:0;color:var(--amber-ink);font-size:.98rem}
+  .clash p strong{font-weight:700}
+
+  /* Filters */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 6px}
+  .filters button{font:inherit;font-weight:600;font-size:.92rem;padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;min-height:44px}
+  .filters button[aria-pressed="true"]{background:var(--chip);color:var(--chip-ink);border-color:var(--chip)}
+  .filters button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+  section{margin-top:30px}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:16px}
+  h2.sec{font-family:"Barlow Condensed",sans-serif;font-size:1.9rem;text-transform:uppercase;letter-spacing:.03em;margin:0;line-height:1}
+  .sec-head p{margin:0;font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;text-align:right}
+
+  /* Gig cards */
+  .gig{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}
+  .gig-top{padding:18px 20px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .badge{font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:5px}
+  .badge.hot{background:var(--hot);color:#fff}
+  .badge.posted{background:var(--surface2);color:var(--muted)}
+  .badge.count{background:var(--green-bg);color:var(--green)}
+  .gig h3{font-family:"Barlow Condensed",sans-serif;font-size:2rem;line-height:1.02;text-transform:uppercase;margin:10px 20px 2px}
+  .gig .place{margin:0 20px;color:var(--muted);font-weight:600;font-size:1rem}
+  .gig .desc{margin:8px 20px 0;color:var(--muted);max-width:38em}
+  .calls{margin:16px 20px 0;border-top:1px solid var(--line)}
+  .call{display:grid;grid-template-columns:118px 1fr auto;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
+  .call:last-child{border-bottom:none}
+  .call .when{font-family:"IBM Plex Mono",monospace;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;color:var(--accent-ink)}
+  .call .what{font-weight:700;font-size:1.05rem}
+  .call .time{font-family:"IBM Plex Mono",monospace;font-size:.92rem;font-weight:600;white-space:nowrap}
+  .call .sub{grid-column:2 / -1;color:var(--muted);font-size:.92rem;margin-top:-6px}
+  .call.is-past{opacity:.72}
+  .call.is-past .when,.call.is-past .what,.call.is-past .time{text-decoration:line-through;text-decoration-thickness:2px;color:var(--muted)}
+  .call.is-past .sub{text-decoration:none}
+  .paybox{margin:16px 20px 20px;background:var(--surface2);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .paybox .k{font-family:"IBM Plex Mono",monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:2px}
+  .paybox .v{font-weight:700;font-size:1.06rem;line-height:1.3}
+  .paybox .v small{display:block;font-weight:500;color:var(--muted);font-size:.88rem}
+  .details{margin:0 20px 18px;padding:0;list-style:none}
+  .details li{padding:7px 0 7px 22px;position:relative;border-top:1px dashed var(--line);font-size:.97rem}
+  .details li::before{content:"—";position:absolute;left:0;color:var(--accent);font-weight:700}
+  .source{margin:0;padding:13px 20px;background:var(--accent-bg);border-top:1.5px solid var(--line);font-size:.94rem;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+  .source .k{font-family:"IBM Plex Mono",monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);font-weight:600}
+  .source strong{font-weight:700}
+
+  /* People + evergreen */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .card{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 2px;font-size:1.14rem}
+  .card .role{font-family:"IBM Plex Mono",monospace;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent-ink);font-weight:600;margin-bottom:8px}
+  .card p{margin:0;color:var(--muted);font-size:.96rem}
+  .card p + p{margin-top:8px}
+  .card .via{margin-top:10px;font-size:.84rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+  .tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:4px 8px;border-radius:5px;background:var(--hot-bg);color:var(--hot);margin-bottom:8px}
+  .tag.watch{background:var(--surface2);color:var(--muted)}
+  .list{list-style:none;margin:0;padding:0}
+  .list li{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:baseline;box-shadow:var(--shadow)}
+  .list .name{font-weight:700;font-size:1.05rem}
+  .list .note{grid-column:1 / -1;color:var(--muted);font-size:.95rem}
+  .list .rate{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.92rem;white-space:nowrap}
+
+  /* Rules */
+  .rules{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:6px 20px}
+  .rules div{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+  .rules div:last-child{border-bottom:none}
+  .rules dt{font-family:"IBM Plex Mono",monospace;font-size:.76rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--accent-ink);padding-top:3px}
+  .rules dd{margin:0;font-size:.97rem}
+  footer{margin-top:36px;border-top:2px solid var(--ink);padding-top:16px;color:var(--muted);font-size:.92rem;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+  footer .mono{font-family:"IBM Plex Mono",monospace;font-size:.8rem}
+  .hidden{display:none !important}
+  /* Page switcher — Hot / Archive are two views in this single file */
+  .pageswitch{display:flex;gap:0;margin-top:20px;border:2px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--surface)}
+  .pageswitch a{flex:1;text-align:center;text-decoration:none;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:1.15rem;padding:12px 10px;min-height:48px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
+  .pageswitch a small{font-family:"IBM Plex Mono",monospace;font-size:.68rem;font-weight:600;letter-spacing:.03em;text-transform:none}
+  .pageswitch a[aria-current="page"]{background:var(--chip);color:var(--chip-ink)}
+  .pageswitch a:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+  .archive-bar{margin-top:22px;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;box-shadow:var(--shadow)}
+  .archive-bar p{margin:0;color:var(--muted);font-size:.97rem;max-width:32em}
+  .archive-bar p strong{color:var(--ink)}
+  .archive-bar a{font-weight:700;text-decoration:none;border:1.5px solid var(--ink);border-radius:999px;padding:10px 16px;background:var(--surface);white-space:nowrap;min-height:44px;display:inline-flex;align-items:center}
+  /* Filled + archived gigs */
+  .badge.filled{background:var(--ink);color:var(--bg)}
+  .badge.archived{background:var(--surface2);color:var(--muted)}
+  .gig.is-filled h3,.gig.is-filled .place,.gig.is-filled .call .what{text-decoration:line-through;text-decoration-thickness:2px}
+  .gig.is-filled{opacity:.78}
+  .gig.is-archived{box-shadow:none}
+  .gig.is-archived h3{color:var(--muted)}
+  /* Archive view */
+  .archive-intro{color:var(--muted);max-width:38em;margin:8px 0 0}
+  .archive-intro strong{color:var(--ink)}
+  .archive-controls{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 4px}
+  .archive-controls label{font-family:"IBM Plex Mono",monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:flex;flex-direction:column;gap:6px;flex:1 1 180px}
+  .archive-controls input,.archive-controls select{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;min-height:44px;width:100%}
+  .archive-controls input:focus-visible,.archive-controls select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .month-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin:30px 0 16px}
+  .month-head h3{font-family:"Barlow Condensed",sans-serif;font-size:1.7rem;text-transform:uppercase;letter-spacing:.03em;margin:0;line-height:1}
+  .month-head p{margin:0;font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;text-align:right}
+  .archive-empty{border:1.5px dashed var(--line);border-radius:12px;padding:18px 20px;background:var(--surface);color:var(--muted)}
+  .archive-empty strong{color:var(--ink)}
+  .archive-empty p{margin:0}
+  .archive-empty p + p{margin-top:8px}
+  .hot-empty{border:1.5px dashed var(--line);border-radius:12px;padding:18px 20px;background:var(--surface);color:var(--muted);margin-bottom:18px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:.92rem;color:var(--muted)}
+  .legend .strike{text-decoration:line-through;text-decoration-thickness:2px;color:var(--ink);font-weight:600}
+  @media (max-width:640px){
+    .grid{grid-template-columns:1fr}
+    .paybox{grid-template-columns:1fr}
+    .call{grid-template-columns:96px 1fr}
+    .call .time{grid-column:2}
+    .call .sub{grid-column:1 / -1}
+    .rules div{grid-template-columns:1fr;gap:2px}
+    .gig h3{font-size:1.7rem}
+    .sec-head{flex-direction:column;gap:2px}
+    .sec-head p{text-align:left}
+  }
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <div class="meta">
+      <span><b>Updated</b> Wed, Nov 11, 2026</span><span class="dot">•</span>
+      <span>Sweep: today</span><span class="dot">•</span>
+      <span>Read-only list — no auto-apply</span>
+    </div>
+    <h1>What's <em>Hot</em></h1>
+    <p class="lede">Stagehand gigs for hire, <strong>San Diego to Anaheim</strong>. Hot means the gig date hasn't passed yet — sorted by gig date, soonest first. Past calls don't vanish, they move to the Archive.</p>
+    <div class="scope" aria-label="Coverage">
+      <span class="solid">San Diego County</span>
+      <span>North County</span>
+      <span>Orange County → Anaheim</span>
+      <span>LA proper: out of range</span>
+    </div>
+    <nav class="pageswitch" aria-label="Hot or Archive">
+      <a href="#hot" data-view-link="hot" aria-current="page">🔥 What's Hot <small>Gig date ahead</small></a>
+      <a href="#archive" data-view-link="archive" rel="nofollow">Archive <small>Back to day 1</small></a>
+    </nav>
+  </header>
+
+  <div id="view-hot" data-view-panel="hot">
+  <div class="clash" role="alert">
+    <div class="icon" aria-hidden="true">⚠️</div>
+    <div>
+      <h2>Friday night clash — pick one</h2>
+      <p>Both hot calls land <strong>Friday, Nov 13</strong>. The Laguna Beach install runs <strong>4pm–11pm</strong> and the La Jolla strike starts at <strong>10pm</strong>. You can't work both Friday calls — choose one, then the Saturday Laguna strike is still open either way.</p>
+    </div>
+  </div>
+
+  <nav class="filters" aria-label="Filter the list">
+    <button type="button" data-filter="all" aria-pressed="true">Everything</button>
+    <button type="button" data-filter="hot" aria-pressed="false">Hot this weekend</button>
+    <button type="button" data-filter="people" aria-pressed="false">People to watch</button>
+    <button type="button" data-filter="evergreen" aria-pressed="false">Evergreen fallback</button>
+  </nav>
+
+  <!-- HOT -->
+  <section data-group="hot" aria-labelledby="hot-h">
+    <div class="sec-head">
+      <h2 class="sec" id="hot-h">Hot — this weekend</h2>
+      <p id="hot-count">4 calls · Sorted by gig date · Posted Nov 11</p>
+    </div>
+    <div id="hot-list">
+    <p class="hot-empty hidden" id="hot-empty">No upcoming calls on Hot right now. Everything dated has moved to the Archive — check Evergreen below, or send Noodle the next post you spot.</p>
+
+    <article class="gig" data-date="2026-11-12" data-end-date="2026-11-14" data-month="2026-11" data-poster="Name withheld" data-location="San Diego">
+      <div class="gig-top">
+        <span class="badge hot">🔥 Hot</span>
+        <span class="badge posted">Posted Mon · Nov 10, 9:27pm PT</span>
+        <span class="badge count" data-countdown>Tomorrow</span>
+      </div>
+      <h3>San Diego — 2 Stagehands, Small PA &amp; Stage</h3>
+      <p class="place">📍 San Diego, CA &nbsp;·&nbsp; General Event Labor</p>
+      <p class="desc">Two stagehands needed for a small production setup: small PA, delays, a small stage, and a small light package.</p>
+
+      <div class="calls">
+        <div class="call is-past" aria-label="Thursday November 12 call — date has passed">
+          <span class="when">Thu · Nov 12</span>
+          <span class="what">Stagehand</span>
+          <span class="time">Times not listed</span>
+          <span class="sub">This date has passed — Saturday, Nov 14 is the remaining call on this post</span>
+        </div>
+        <div class="call">
+          <span class="when">Sat · Nov 14</span>
+          <span class="what">Stagehand</span>
+          <span class="time">Times not listed</span>
+          <span class="sub">Same date as the Laguna Beach strike (9:30pm – midnight) — check times with the poster before committing to both</span>
+        </div>
+      </div>
+
+      <div class="paybox">
+        <div>
+          <div class="k">Pay</div>
+          <div class="v">$30 / hr <small>5-hour minimum on every call</small></div>
+        </div>
+        <div>
+          <div class="k">What that means</div>
+          <div class="v">$150 minimum per day <small>$300 minimum across both days, Nov 12 &amp; 14</small></div>
+        </div>
+      </div>
+
+      <ul class="details">
+        <li>Crew of 2 — both hands come from this one post.</li>
+        <li>Scope: small PA, delays, small stage, and a small light package.</li>
+        <li>⏰ No call times were listed in the post — confirm start times with the poster before you commit, especially for Saturday.</li>
+        <li>⚠️ Saturday, Nov 14 is also the Laguna Beach strike (9:30pm – midnight). You may be able to do both, but only if this call's times don't run into it — check first.</li>
+        <li>To get on it: find the post in the STAGEHAND WORK group linked below and contact the poster through it.</li>
+      </ul>
+
+      <p class="source"><span class="k">Source</span> <span>Facebook group <a href="https://facebook.com/groups/197601953736067/" target="_blank" rel="noopener"><strong>STAGEHAND WORK</strong></a> — find the post there by date and details. Posted Mon, Nov 10, 2026 at 9:27pm PT.</span></p>
+    </article>
+
+    <article class="gig" data-date="2026-11-13" data-end-date="2026-11-13" data-month="2026-11" data-poster="Scott McBride" data-location="La Jolla">
+      <div class="gig-top">
+        <span class="badge hot">🔥 Hot</span>
+        <span class="badge posted">Posted today · Nov 11</span>
+        <span class="badge count" data-countdown>In 2 days</span>
+      </div>
+      <h3>La Jolla — Event Strike</h3>
+      <p class="place">📍 La Jolla, CA &nbsp;·&nbsp; General Event Labor</p>
+      <p class="desc">General labor help Friday night to strike an event — draping and lighting teardown.</p>
+
+      <div class="calls">
+        <div class="call">
+          <span class="when">Fri · Nov 13</span>
+          <span class="what">Strike</span>
+          <span class="time">10:00pm – 11:30pm</span>
+          <span class="sub">1.5-hour call, paid as 5 hours</span>
+        </div>
+      </div>
+
+      <div class="paybox">
+        <div>
+          <div class="k">Pay</div>
+          <div class="v">$30 – $37.50 / hr <small>Based on experience</small></div>
+        </div>
+        <div>
+          <div class="k">What that means</div>
+          <div class="v">$150 – $187.50 for the night <small>5-hour minimum · Paid via Zelle the day after</small></div>
+        </div>
+      </div>
+
+      <ul class="details">
+        <li>Drape or lighting experience is a plus, not required.</li>
+        <li>Looking for reliable people who show up on time and work well on a crew.</li>
+        <li>To get on it: message Scott McBride on Facebook with your relevant experience.</li>
+      </ul>
+
+      <p class="source"><span class="k">Source</span> <span>Facebook group <strong>Stagehand Opportunities</strong> — poster <strong>Scott McBride</strong> (Brilliant Event Lighting, Oceanside). Find the post by group + poster name; no direct link was captured in the screenshots.</span></p>
+    </article>
+
+    <article class="gig" data-date="2026-11-13" data-end-date="2026-11-14" data-month="2026-11" data-poster="Scott McBride" data-location="Laguna Beach">
+      <div class="gig-top">
+        <span class="badge hot">🔥 Hot</span>
+        <span class="badge posted">Posted today · Nov 11</span>
+        <span class="badge count" data-countdown>In 2 days</span>
+      </div>
+      <h3>Laguna Beach — Wedding Install &amp; Strike</h3>
+      <p class="place">📍 Laguna Beach, CA &nbsp;·&nbsp; General Event Labor</p>
+      <p class="desc">General labor help this weekend to install and strike draping and lighting for a wedding. Two separate calls — you can take one or both.</p>
+
+      <div class="calls">
+        <div class="call">
+          <span class="when">Fri · Nov 13</span>
+          <span class="what">Install</span>
+          <span class="time">4:00pm – 11:00pm</span>
+          <span class="sub">7-hour call at full rate</span>
+        </div>
+        <div class="call">
+          <span class="when">Sat · Nov 14</span>
+          <span class="what">Strike</span>
+          <span class="time">9:30pm – Midnight</span>
+          <span class="sub">2.5-hour call, paid as 5 hours</span>
+        </div>
+      </div>
+
+      <div class="paybox">
+        <div>
+          <div class="k">Pay</div>
+          <div class="v">$30 – $37.50 / hr <small>Based on experience · 5-hour minimum on every call</small></div>
+        </div>
+        <div>
+          <div class="k">What that means</div>
+          <div class="v">Install $210 – $262.50 · Strike $150 – $187.50 <small>Paid via Zelle the day after the event</small></div>
+        </div>
+      </div>
+
+      <ul class="details">
+        <li>Drape or lighting experience is a plus, not required.</li>
+        <li>Looking for reliable people who show up on time and work well on a crew.</li>
+        <li>⚠️ Friday install (ends 11pm) clashes with the La Jolla strike (starts 10pm) — see the note at the top.</li>
+        <li>To get on it: message Scott McBride on Facebook with your relevant experience.</li>
+      </ul>
+
+      <p class="source"><span class="k">Source</span> <span>Facebook group <strong>Stagehand Opportunities</strong> — poster <strong>Scott McBride</strong> (Brilliant Event Lighting, Oceanside). Find the post by group + poster name; no direct link was captured in the screenshots.</span></p>
+    </article>
+
+    <article class="gig" data-date="2026-11-15" data-end-date="2026-11-17" data-month="2026-11" data-poster="Experience First Productions" data-location="Downtown San Diego">
+      <div class="gig-top">
+        <span class="badge hot">🔥 Hot</span>
+        <span class="badge posted">Posted Nov 8</span>
+        <span class="badge count" data-countdown>In 4 days</span>
+      </div>
+      <h3>Mariah Carey Holiday Bar — Staging / Decor / Install Crew</h3>
+      <p class="place">📍 Downtown San Diego, CA &nbsp;·&nbsp; Experience First Productions</p>
+      <p class="desc">Crew for decorating and installing event elements for a Mariah Carey Christmas bar. Local labor required. A second role on the same project — Event Set Up Crew — is listed on the same terms.</p>
+
+      <div class="calls">
+        <div class="call">
+          <span class="when">Sun–Tue · Nov 15–17</span>
+          <span class="what">Staging / Decor / Install Crew</span>
+          <span class="time">3 days</span>
+          <span class="sub">Also listed: Event Set Up Crew — same dates, pay, and terms</span>
+        </div>
+      </div>
+
+      <div class="paybox">
+        <div>
+          <div class="k">Pay</div>
+          <div class="v">$225 / day <small>Flat day rate</small></div>
+        </div>
+        <div>
+          <div class="k">What that means</div>
+          <div class="v">$675 total <small>Est. 3 days of work, Nov 15–17</small></div>
+        </div>
+      </div>
+
+      <ul class="details">
+        <li>Company: <strong>Experience First Productions</strong> — operations manager Nathan Dichter.</li>
+        <li>Local labor required — this is a San Diego-based call.</li>
+        <li>⏰ The listing <strong>expires Sun, Nov 15, 2026 at 4:00 PM</strong> — the same day work starts — so apply before then.</li>
+        <li>To get on it: apply through the Backstage listing. A Backstage membership / login is required to see the submission instructions.</li>
+      </ul>
+
+      <p class="source"><span class="k">Source</span> <span><a href="https://www.backstage.com/casting/mariah-carey-holiday-bar-event-set-decorators-and-installation-crew-3336420/stagingdecorinstall-crew-5675911" target="_blank" rel="noopener"><strong>Backstage listing</strong></a> — Mariah Carey Holiday Bar, Staging/Decor/Install Crew. Published Nov 8, 2026; expires Nov 15, 2026 at 4:00 PM.</span></p>
+    </article>
+    </div>
+  </section>
+
+  <!-- PEOPLE -->
+  <section data-group="people" aria-labelledby="people-h">
+    <div class="sec-head">
+      <h2 class="sec" id="people-h">People to watch</h2>
+      <p>Leads, not dated gigs — yet</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <span class="tag">Coordinator lead</span>
+        <h3>Jennifer Pond</h3>
+        <div class="role">Coordinator</div>
+        <p>Her client's focus days are specifically looking for people with <strong>scissor lift certification and experience</strong> — that's the key filter. She's also building a backup list in case someone drops out, and prefers hands who can be part of the hang, too.</p>
+        <p>If you're scissor lift certified, you're exactly who she needs to hear from. If not, you're a weaker fit for these particular days.</p>
+        <p class="via">Contact details not published on this public page</p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Repeat poster</span>
+        <h3>Scott McBride</h3>
+        <div class="role">Brilliant Event Lighting · Oceanside</div>
+        <p>The most active poster in the <strong>Stagehand Opportunities</strong> group right now — both hot calls above are his, posted today. Worth following directly: when he posts, it's usually a same-weekend call with clear pay and a 5-hour minimum.</p>
+        <p class="via">Source: Facebook — Stagehand Opportunities</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- EVERGREEN -->
+  <section data-group="evergreen" aria-labelledby="ev-h">
+    <div class="sec-head">
+      <h2 class="sec" id="ev-h">Evergreen fallback</h2>
+      <p>Always hiring · No specific date</p>
+    </div>
+    <ul class="list">
+      <li>
+        <span class="name">Rhino Staging — San Diego</span>
+        <span class="rate">SD + Anaheim / OC</span>
+        <span class="note">General and skilled stagehands for concerts, festivals, and live events across the greater San Diego area. The Anaheim / Orange County operation was listed at $23–$25/hr in the sweep. Best bet when no hot call is live — get on the roster before you need the work.</span>
+      </li>
+      <li>
+        <span class="name">Hands On Labor — San Diego</span>
+        <span class="rate">24/7 dispatch</span>
+        <span class="note">San Diego event labor with round-the-clock dispatch. Suited to last-minute calls when a weekend goes quiet.</span>
+      </li>
+      <li>
+        <span class="name">Live Nation venues — San Diego</span>
+        <span class="rate">House of Blues · Observatory</span>
+        <span class="note">Venue-side stagehand and event work at Live Nation's San Diego rooms. Slower to get on than a Facebook call, steadier once you are.</span>
+      </li>
+      <li>
+        <span class="name">AWOL Productions — Chad Craig</span>
+        <span class="rate">Multi-city, incl. San Diego</span>
+        <span class="note">Repeat poster running calls across multiple cities, San Diego included. Watch the poster, not just the post — the pattern repeats.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- RULES -->
+  <section data-group="rules" aria-labelledby="rules-h">
+    <div class="sec-head">
+      <h2 class="sec" id="rules-h">How this list works</h2>
+      <p>v1 · List + links only</p>
+    </div>
+    <dl class="rules">
+      <div><dt>Hot = gig date</dt><dd>A call is Hot while its gig date hasn't passed yet — not for 72 hours after it was posted. A gig posted days ago for tomorrow is still Hot; a gig posted this morning for yesterday is already dead. Hot is sorted by gig date, soonest first.</dd></div>
+      <div><dt>Filled</dt><dd>When a call fills, it leaves Hot fast — within a day — so nobody keeps DMing a poster for a spot that's gone. In the Archive it stays on the record with <strong>strikethrough</strong> and a Filled tag.</dd></div>
+      <div><dt>To the Archive</dt><dd>The day after a gig's last date, it moves to the Archive, grouped by month, back to day 1. Nothing is deleted — Hot just stays short enough to actually use.</dd></div>
+      <div><dt>Range</dt><dd>San Diego and immediate surrounding areas, as far north as Anaheim. LA proper is a different ecosystem and stays off this list.</dd></div>
+      <div><dt>Read-only</dt><dd>This page never applies, comments, or messages anyone for you. You read it, you click through, you decide. That's deliberate for v1.</dd></div>
+      <div><dt>Feeding it</dt><dd>Got a new call, group, or poster? Send Noodle the screenshot or link as it comes in and it gets slotted in by gig date, and the past stuff rolls into the Archive.</dd></div>
+    </dl>
+  </section>
+
+  <div class="archive-bar">
+    <p><strong>Looking for an older call?</strong> Past gigs live in the Archive, grouped by month back to day 1 — Wed, Nov 11, 2026. Filled calls show there with strikethrough.</p>
+    <a href="#archive" data-view-link="archive" rel="nofollow">Open the Archive →</a>
+  </div>
+  </div><!-- /view-hot -->
+
+  <!-- ARCHIVE VIEW -->
+  <div id="view-archive" data-view-panel="archive" hidden>
+    <section aria-labelledby="archive-h" style="margin-top:26px">
+      <div class="sec-head">
+        <h2 class="sec" id="archive-h">Archive</h2>
+        <p>Grouped by month · Back to day 1</p>
+      </div>
+      <p class="archive-intro">Every dated call that has left Hot, kept as a record — <strong>gig date, pay, poster, and final status</strong>. Filled calls are struck through. This view is marked <strong>noindex / nofollow</strong> so dated pay and location data stays out of search results; it's public if you have the link, not invisible.</p>
+      <div class="legend" aria-label="Archive legend">
+        <span><span class="strike">Struck-through title</span> = filled</span>
+        <span>Plain title = gig date passed, final fill status unknown</span>
+      </div>
+
+      <div class="archive-controls">
+        <label>Search the Archive
+          <input type="search" id="archive-search" placeholder="Poster, place, or role — e.g. Scott, La Jolla" autocomplete="off" />
+        </label>
+        <label>Month
+          <select id="archive-month">
+            <option value="all">All months</option>
+            <option value="2026-11">November 2026</option>
+          </select>
+        </label>
+        <label>Poster
+          <select id="archive-poster">
+            <option value="all">All posters</option>
+            <option value="Scott McBride">Scott McBride</option>
+            <option value="Experience First Productions">Experience First Productions</option>
+          </select>
+        </label>
+      </div>
+
+      <div data-month-group="2026-11">
+        <div class="month-head">
+          <h3>November 2026</h3>
+          <p id="nov-count">0 archived calls · List started Nov 11</p>
+        </div>
+        <div id="archive-slot-2026-11"></div>
+        <div class="archive-empty" id="archive-empty-2026-11">
+          <p><strong>Nothing archived yet — the list is only on day 1.</strong></p>
+          <p>The La Jolla strike moves here on <strong>Sat, Nov 14</strong> (the day after its gig date), the Laguna Beach install &amp; strike and the San Diego stagehand call (last date Nov 14) move here on <strong>Sun, Nov 15</strong> after their last calls, and the Mariah Carey Holiday Bar crew moves here on <strong>Wed, Nov 18</strong> after its last day. Open this page after those dates and they'll be listed here automatically. A call marked filled moves here within a day instead, with strikethrough.</p>
+        </div>
+      </div>
+      <p id="archive-noresults" class="archive-empty hidden" style="margin-top:14px"><strong>No archived calls match that filter.</strong> Try clearing the search or picking a different month or poster.</p>
+    </section>
+    <div class="archive-bar">
+      <p><strong>Back to what's live:</strong> Hot only shows calls whose gig date is still ahead.</p>
+      <a href="#hot" data-view-link="hot">← Back to What's Hot</a>
+    </div>
+  </div><!-- /view-archive -->
+
+  <footer>
+    <span>What's Hot — Stagehand Gigs · First sweep: Wed, Nov 11, 2026</span>
+    <span class="mono">SD → ANAHEIM · NO X · NO AUTO-APPLY · ARCHIVE: NOINDEX</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  // ---- View switching: Hot / Archive are two views in this single file ----
+  var panels = { hot: document.querySelector('[data-view-panel="hot"]'), archive: document.querySelector('[data-view-panel="archive"]') };
+  var viewLinks = Array.prototype.slice.call(document.querySelectorAll('[data-view-link]'));
+  function showView(name){
+    if(!panels[name]) name = 'hot';
+    Object.keys(panels).forEach(function(k){ if(panels[k]) panels[k].hidden = (k !== name); });
+    viewLinks.forEach(function(a){
+      if(a.closest('.pageswitch')){ if(a.getAttribute('data-view-link') === name) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); }
+    });
+    window.scrollTo(0,0);
+  }
+  function viewFromHash(){ return (location.hash === '#archive') ? 'archive' : 'hot'; }
+  window.addEventListener('hashchange', function(){ showView(viewFromHash()); });
+
+  // ---- Hot filter tabs — in-memory UI state only ----
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.filters button'));
+  var sections = Array.prototype.slice.call(document.querySelectorAll('#view-hot section[data-group]'));
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+      btn.setAttribute('aria-pressed','true');
+      var f = btn.getAttribute('data-filter');
+      sections.forEach(function(s){
+        var g = s.getAttribute('data-group');
+        var show = (f === 'all') || (g === f);
+        if(f !== 'all' && g === 'rules') show = false;
+        s.classList.toggle('hidden', !show);
+      });
+      if(f !== 'all'){
+        var target = document.querySelector('#view-hot section[data-group="'+f+'"]');
+        if(target) target.scrollIntoView({block:'start'});
+      }
+    });
+  });
+
+  // ---- Gig-date lifecycle, anchored to Pacific time ----
+  // Hot = gig date (last call date) hasn't passed. The day after, the card
+  // moves itself into its month group in the Archive. Filled cards carry
+  // data-status="filled" and render struck-through in the Archive.
+  function pacificToday(){
+    try{
+      var s = new Date().toLocaleDateString('en-CA',{timeZone:'America/Los_Angeles'});
+      var p = s.split('-');
+      return new Date(+p[0], +p[1]-1, +p[2]);
+    }catch(e){
+      var n = new Date(); n.setHours(0,0,0,0); return n;
+    }
+  }
+  var now = pacificToday();
+  var hotList = document.getElementById('hot-list');
+  // Sort Hot by gig date, soonest first
+  if(hotList){
+    var cards = Array.prototype.slice.call(hotList.querySelectorAll('.gig'));
+    cards.sort(function(a,b){ return a.getAttribute('data-date') < b.getAttribute('data-date') ? -1 : 1; });
+    cards.forEach(function(c){ hotList.appendChild(c); });
+  }
+  var archivedCount = 0, hotCount = 0;
+  document.querySelectorAll('.gig').forEach(function(card){
+    var start = new Date(card.getAttribute('data-date') + 'T00:00:00');
+    var endStr = card.getAttribute('data-end-date') || card.getAttribute('data-date');
+    var end = new Date(endStr + 'T00:00:00');
+    var days = Math.round((start - now) / 86400000);
+    var el = card.querySelector('[data-countdown]');
+    var filled = card.getAttribute('data-status') === 'filled';
+    if(filled){ card.classList.add('is-filled'); var fb = document.createElement('span'); fb.className='badge filled'; fb.textContent='Filled'; var top = card.querySelector('.gig-top'); if(top) top.insertBefore(fb, top.firstChild); }
+    if(now > end){
+      // Move to Archive month slot
+      card.classList.add('is-archived');
+      var hotBadge = card.querySelector('.badge.hot'); if(hotBadge){ hotBadge.className='badge archived'; hotBadge.textContent = filled ? 'Filled' : 'Archived'; }
+      if(el){ el.textContent = 'Gig date passed'; }
+      var slot = document.getElementById('archive-slot-' + (card.getAttribute('data-month') || '2026-11'));
+      if(slot){ slot.appendChild(card); archivedCount++; }
+      var empty = document.getElementById('archive-empty-' + (card.getAttribute('data-month') || '2026-11'));
+      if(empty) empty.classList.add('hidden');
+    } else {
+      hotCount++;
+      if(el){
+        if(days < 0){ el.textContent = 'In progress — last call coming up'; }
+        else if(days === 0){ el.textContent = 'Today'; }
+        else if(days === 1){ el.textContent = 'Tomorrow'; }
+        else { el.textContent = 'In ' + days + ' days'; }
+      }
+    }
+  });
+  var hotCountEl = document.getElementById('hot-count');
+  if(hotCountEl) hotCountEl.textContent = hotCount + (hotCount === 1 ? ' call' : ' calls') + ' · Sorted by gig date · Posted Nov 11';
+  var hotEmpty = document.getElementById('hot-empty');
+  if(hotEmpty) hotEmpty.classList.toggle('hidden', hotCount !== 0);
+  var novCount = document.getElementById('nov-count');
+  if(novCount) novCount.textContent = archivedCount + (archivedCount === 1 ? ' archived call' : ' archived calls') + ' · List started Nov 11';
+
+  // ---- Archive filters: search + month + poster ----
+  var aSearch = document.getElementById('archive-search'), aMonth = document.getElementById('archive-month'), aPoster = document.getElementById('archive-poster'), aNone = document.getElementById('archive-noresults');
+  function applyArchiveFilters(){
+    if(!aSearch) return;
+    var q = aSearch.value.trim().toLowerCase(), m = aMonth.value, p = aPoster.value, visible = 0;
+    document.querySelectorAll('#view-archive [data-month-group]').forEach(function(group){
+      var groupVisible = 0;
+      group.querySelectorAll('.gig').forEach(function(card){
+        var ok = (!q || card.textContent.toLowerCase().indexOf(q) !== -1) && (m === 'all' || card.getAttribute('data-month') === m) && (p === 'all' || card.getAttribute('data-poster') === p);
+        card.classList.toggle('hidden', !ok); if(ok){ visible++; groupVisible++; }
+      });
+      group.classList.toggle('hidden', (m !== 'all' && group.getAttribute('data-month-group') !== m) || (archivedCount > 0 && groupVisible === 0 && !!q));
+    });
+    if(aNone) aNone.classList.toggle('hidden', !(archivedCount > 0 && visible === 0));
+  }
+  [aSearch, aMonth, aPoster].forEach(function(ctrl){ if(ctrl){ ctrl.addEventListener('input', applyArchiveFilters); ctrl.addEventListener('change', applyArchiveFilters); } });
+
+  showView(viewFromHash());
+})();
+</script>
+</body>
+</html>
